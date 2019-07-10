@@ -3,23 +3,34 @@ version: '3.7'
 services:
 
   traefik:
-    image: traefik:1.7
+    image: traefik:latest
     container_name: proxy
-    command: --docker --docker.exposedbydefault=false
+    command: --api --docker --docker.exposedbydefault=false
     ports:
       - "80:80"
+      - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
+  node:
+    image: node:latest
+    container_name: node
+    working_dir: /home/node/app
+    labels:
+      - traefik.enable=true
+      - traefik.backend=node
+      - traefik.frontend.rule=Host:client.localhost
+#    command: "npm start"
+    volumes:
+      - ./client:/home/node/app:rw
 
   app:
-    image: thecodingmachine/php:7.3-v2-apache-node12
-#    image: thecodingmachine/php:7.3-v2-fpm-node12
+    image: thecodingmachine/php:7.3-v2-apache
     container_name: php
     labels:
       - traefik.enable=true
       - traefik.backend=app
-      - traefik.frontend.rule=Host:app.localhost
+      - traefik.frontend.rule=Host:api.localhost
     environment:
       APACHE_DOCUMENT_ROOT: public/
       PHP_EXTENSION_XDEBUG: 1
@@ -50,7 +61,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.backend=phpmyadmin
-      - traefik.frontend.rule=Host:phpadmin.app.localhost
+      - traefik.frontend.rule=Host:mysql.localhost
     environment:
       PMA_HOST: mysql
       PMA_USER: root
