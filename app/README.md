@@ -1,0 +1,1 @@
+Based on [the article](https://www.nielsvandermolen.com/symfony-4-api-platform-application/)
