@@ -38,7 +38,7 @@ class User implements UserInterface, Serializable
      * @var array
      * @ORM\Column(type="simple_array")
      */
-    private $roles;
+    private $roles = ['ROLE_USER'];
 
     /**
      * @return mixed
