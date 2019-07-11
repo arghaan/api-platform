@@ -30,6 +30,7 @@ services:
     networks:
       net:
         ipv4_address: 172.16.111.20
+#    command: "ping ya.ru"
     command: "yarn serve --port 8000 --host client.localhost"
     volumes:
       - ./client:/home/node/app:rw
