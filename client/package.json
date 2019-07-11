@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,7 +11,6 @@
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
-    "vuetify": "^1.5.5",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -23,33 +22,6 @@
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.1",
-    "vue-cli-plugin-vuetify": "^0.5.0",
-    "vue-template-compiler": "^2.6.10",
-    "vuetify-loader": "^1.0.5"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ]
+    "vue-template-compiler": "^2.6.10"
+  }
 }
