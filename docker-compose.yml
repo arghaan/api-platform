@@ -16,22 +16,21 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   node:
-#    build:
-#      context: ./services/node
-    image: node:latest
+    build:
+      context: ./services/node
+    image: arghaan/node
+    hostname: client.localhost
     container_name: node
     working_dir: /home/node/app
     labels:
       - traefik.enable=true
       - traefik.port=8000
       - traefik.backend=node
-      - traefik.frontend.rule=Host:client.localhost
+      - traefik.frontend.rule=Host:client.localhost, localhost
     networks:
       net:
         ipv4_address: 172.16.111.20
-    #    ports:
-#      - "8000:3000"
-    command: "yarn serve --port 8000 --host 172.16.111.20"
+    command: "yarn serve --port 8000 --host client.localhost"
     volumes:
       - ./client:/home/node/app:rw
 
