@@ -6,6 +6,9 @@ services:
     image: traefik:latest
     container_name: proxy
     command: --api --docker --docker.exposedbydefault=false
+    networks:
+      net:
+        ipv4_address: 172.16.111.10
     ports:
       - "80:80"
       - "8080:8080"
@@ -13,23 +16,33 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   node:
+#    build:
+#      context: ./services/node
     image: node:latest
     container_name: node
     working_dir: /home/node/app
     labels:
       - traefik.enable=true
+      - traefik.port=8000
       - traefik.backend=node
       - traefik.frontend.rule=Host:client.localhost
-#    command: "npm start"
+    networks:
+      net:
+        ipv4_address: 172.16.111.20
+    #    ports:
+#      - "8000:3000"
+    command: "yarn serve --port 8000 --host 172.16.111.20"
     volumes:
       - ./client:/home/node/app:rw
 
-  app:
+  api:
     image: thecodingmachine/php:7.3-v2-apache
     container_name: php
+    networks:
+      net:
+        ipv4_address: 172.16.111.30
     labels:
       - traefik.enable=true
-      - traefik.backend=app
       - traefik.frontend.rule=Host:api.localhost
     environment:
       APACHE_DOCUMENT_ROOT: public/
@@ -40,12 +53,15 @@ services:
       APP_SECRET: fd4f75c792f98b3c603a576ebff41ee2
       DATABASE_URL: mysql://user:acd74h5@db:3306/project_db # mysql://db_user:db_password@127.0.0.1:3306/db_name
     volumes:
-      - ./app:/var/www/html:rw
+      - ./api:/var/www/html:rw
 
 
   mysql:
     image: mysql:5.7
     container_name: db
+    networks:
+      net:
+        ipv4_address: 172.16.111.40
     environment:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: project_db
@@ -58,9 +74,11 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
+    networks:
+      net:
+        ipv4_address: 172.16.111.50
     labels:
       - traefik.enable=true
-      - traefik.backend=phpmyadmin
       - traefik.frontend.rule=Host:mysql.localhost
     environment:
       PMA_HOST: mysql
@@ -69,4 +87,11 @@ services:
 
 volumes:
   mysql_data:
-    driver: local
+
+networks:
+  net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.111.0/24
