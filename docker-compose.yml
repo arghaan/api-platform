@@ -19,19 +19,19 @@ services:
     build:
       context: ./services/node
     image: arghaan/node
-    hostname: client.localhost
+    hostname: syrius.local
     container_name: node
     working_dir: /home/node/app
     labels:
       - traefik.enable=true
       - traefik.port=8000
       - traefik.backend=node
-      - traefik.frontend.rule=Host:client.localhost, localhost
+      - traefik.frontend.rule=Host:syrius.local
     networks:
       net:
         ipv4_address: 172.16.111.20
 #    command: "ping ya.ru"
-    command: "yarn serve --port 8000 --host client.localhost"
+    command: "yarn serve"
     volumes:
       - ./client:/home/node/app:rw
 
@@ -43,7 +43,7 @@ services:
         ipv4_address: 172.16.111.30
     labels:
       - traefik.enable=true
-      - traefik.frontend.rule=Host:api.localhost
+      - traefik.frontend.rule=Host:api.syrius.local
     environment:
       APACHE_DOCUMENT_ROOT: public/
       PHP_EXTENSION_XDEBUG: 1
@@ -79,7 +79,7 @@ services:
         ipv4_address: 172.16.111.50
     labels:
       - traefik.enable=true
-      - traefik.frontend.rule=Host:mysql.localhost
+      - traefik.frontend.rule=Host:mysql.syrius.local
     environment:
       PMA_HOST: mysql
       PMA_USER: root

@@ -7,6 +7,8 @@ module.exports = {
                 changeOrigin: true
             },
         },
-        disableHostCheck: true
+        disableHostCheck: true,
+        public: 'syrius.local',
+        port: '8000'
     }
 };
