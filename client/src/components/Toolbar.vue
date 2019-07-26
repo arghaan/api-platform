@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar app class="elevation-4">
+    <v-app-bar app class="elevation-4">
         <v-toolbar-title class="py-2 mr-5">
             <v-img
                     :src="require('../assets/logo.svg')"
@@ -13,35 +13,39 @@
                     v-for="(item, key) in menu"
                     :key="key"
                     :to="item.href"
-                    flat
+                    text
             >
                 {{item.title}}
             </v-btn>
         </v-toolbar-items>
         <v-spacer></v-spacer>
-        <v-btn icon>
-            <v-icon>search</v-icon>
-        </v-btn>
-        <profile></profile>
-        <v-menu class="hidden-md-and-up">
-            <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
-            <v-list>
-                <v-list-tile v-for="(item, key) in menu" :key="key">
-                    <v-list-tile-content>
-                        <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-            </v-list>
+        <v-menu>
+            <template v-slot:activator="{ on }">
+                <v-app-bar-nav-icon class="hidden-md-and-up" v-on="on"></v-app-bar-nav-icon>
+            </template>
+                <v-list>
+                    <v-list-item v-for="(item, key) in menu" :key="key">
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
         </v-menu>
-    </v-toolbar>
+        <v-text-field
+                prepend-inner-icon="search"
+                class="search-btn mr-5 hidden-sm-and-down"
+                single-line
+                label="Search..."
+        ></v-text-field>
+        <profile></profile>
+    </v-app-bar>
 </template>
 
 <script>
     import Profile from "./Profile";
+
     export default {
         name: "Toolbar",
         components: {Profile},
-        data(){
+        data() {
             return {
                 menu: [
                     {icon: '', title: 'Link 1', href: '#/1'},

@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app app>
         <toolbar></toolbar>
         <v-content>
             <v-container fluid>
@@ -19,13 +19,12 @@
 <script>
 
     import Toolbar from "./components/Toolbar";
+
     export default {
         name: 'App',
         components: {Toolbar},
         data() {
-            return {
-
-            }
+            return {}
         }
     }
 </script>

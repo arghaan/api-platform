@@ -1,17 +1,15 @@
 <template>
     <v-menu offset-y class="wrapper">
-        <template slot="activator">
-            <i v-if="avatar === ''" class="material-icons" slot="activator">
+        <template v-slot:activator="{ on }">
+            <i v-if="avatar === ''" class="material-icons" v-on="on">
                 account_circle
             </i>
             <span v-if="name !== ''" class="name">{{name}}</span>
         </template>
         <v-list>
-            <v-list-tile>
-                <v-list-tile-content>
-                    <v-list-tile-title>Login</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
+            <v-list-item>
+                <v-list-item-title>Login</v-list-item-title>
+            </v-list-item>
         </v-list>
     </v-menu>
 </template>

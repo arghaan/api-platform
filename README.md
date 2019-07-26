@@ -20,7 +20,10 @@ create vue.config.js with this code
             //     },
             // },
             disableHostCheck: true
+            public: 'syrius.local',
+            port: '8000'
         }
     };
     
-**proxy** section may be needed for proxy to api host
+* **proxy** section may be needed for proxy to api host
+* **public** for fix problem with request _socks-node_ to localhost
