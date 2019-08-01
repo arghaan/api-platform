@@ -2,12 +2,18 @@
     <v-data-table
             :headers="headers"
             :items="products"
+            :server-items-length="total"
+            :page.sync="pagination.page"
+            :items-per-page.sync="pagination.itemsPerPage"
             :loading="isLoading"
-            sort-by="id"
+            :disable-sort="true"
             class="elevation-1"
             :footer-props="{
               showFirstLastPage: true,
+              itemsPerPageOptions: [10, 50, 100]
             }"
+
+            @pagination="updatePagination"
     >
         <template v-slot:top>
             <v-toolbar flat color="white">
@@ -73,25 +79,25 @@
             dialog: false,
             headers: [
                 {text: 'ID', value: 'id'},
+                {text: 'Offer ID', value: 'offer_id'},
+                {text: 'Ozon ID', value: 'sku'},
                 {text: 'Название', value: 'name',},
                 {text: 'Цена', value: 'price'},
-                {text: 'Категория', value: 'category_id'},
+                {text: 'Категория', value: 'category_title'},
+                {text: 'Действия', value: 'action', sortable: false},
             ],
-            desserts: [],
             editedIndex: -1,
             editedItem: {
                 name: '',
-                calories: 0,
-                fat: 0,
-                carbs: 0,
-                protein: 0,
+                id: 0,
+                price: 0,
+                category_id: 0,
             },
             defaultItem: {
                 name: '',
-                calories: 0,
-                fat: 0,
-                carbs: 0,
-                protein: 0,
+                id: 0,
+                price: 0,
+                category_id: 0,
             },
         }),
 
@@ -114,6 +120,12 @@
             products() {
                 return this.$store.getters['product/products'];
             },
+            total() {
+                return this.$store.getters['product/total'];
+            },
+            pagination() {
+                return this.$store.getters['product/pagination'];
+            }
         },
 
         watch: {
@@ -123,19 +135,19 @@
         },
 
         created() {
-            this.$store.dispatch('product/fetchProducts');
+            // this.$store.dispatch('product/fetchCategories');
         },
 
         methods: {
             editItem(item) {
-                this.editedIndex = this.desserts.indexOf(item);
+                this.editedIndex = this.products.indexOf(item);
                 this.editedItem = Object.assign({}, item);
                 this.dialog = true
             },
 
             deleteItem(item) {
-                const index = this.desserts.indexOf(item);
-                confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+                const index = this.products.indexOf(item);
+                confirm('Are you sure you want to delete this item?') && this.products.splice(index, 1)
             },
 
             close() {
@@ -147,13 +159,18 @@
             },
 
             save() {
-                if (this.editedIndex > -1) {
-                    Object.assign(this.desserts[this.editedIndex], this.editedItem)
-                } else {
-                    this.desserts.push(this.editedItem)
-                }
-                this.close()
+                // if (this.editedIndex > -1) {
+                //     Object.assign(this.desserts[this.editedIndex], this.editedItem)
+                // } else {
+                //     this.desserts.push(this.editedItem)
+                // }
+                // this.close()
             },
+
+            updatePagination(pagination) {
+                // console.log(pagination);
+                this.$store.dispatch('product/updatePagination', pagination);
+            }
         },
     }
 </script>

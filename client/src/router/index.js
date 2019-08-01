@@ -10,8 +10,8 @@ let router = new VueRouter({
     mode: 'history',
     routes: [
         {
-            path: '/',
-            name: 'home',
+            path: '/ozon',
+            name: 'ozon',
             component: ProductList
         }
     ],

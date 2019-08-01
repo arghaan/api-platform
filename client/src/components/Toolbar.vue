@@ -15,6 +15,7 @@
                     :to="item.href"
                     text
             >
+                <v-icon class="pr-2">{{item.icon}}</v-icon>
                 {{item.title}}
             </v-btn>
         </v-toolbar-items>
@@ -48,10 +49,10 @@
         data() {
             return {
                 menu: [
-                    {icon: '', title: 'Link 1', href: '#/1'},
-                    {icon: '', title: 'Link 2', href: '#/2'},
-                    {icon: '', title: 'Link 3', href: '#/3'},
-                    {icon: '', title: 'Link 4', href: '#/4'},
+                    {icon: 'widgets', title: 'Ozon', href: '/ozon'},
+                    {icon: 'gavel', title: 'beri.ru', href: '/beri'},
+                    // {icon: '', title: 'Link 3', href: '#/3'},
+                    // {icon: '', title: 'Link 4', href: '#/4'},
                 ]
             }
         }
