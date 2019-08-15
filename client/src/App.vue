@@ -24,7 +24,10 @@
         name: 'App',
         components: {Toolbar},
         data() {
-            return {}
-        }
+            return {
+
+            }
+        },
+
     }
 </script>

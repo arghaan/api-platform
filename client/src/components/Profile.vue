@@ -1,10 +1,10 @@
 <template>
     <v-menu offset-y class="wrapper">
         <template v-slot:activator="{ on }">
-            <i v-if="avatar === ''" class="material-icons" v-on="on">
-                account_circle
-            </i>
             <span v-if="name !== ''" class="name">{{name}}</span>
+            <v-list-item-avatar v-if="avatar === ''" class="material-icons" v-on="on">
+                <img src="https://randomuser.me/api/portraits/men/21.jpg">
+            </v-list-item-avatar>
         </template>
         <v-list>
             <v-list-item>

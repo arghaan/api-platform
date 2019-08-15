@@ -1,8 +1,10 @@
 module.exports = {
     devServer: {
         proxy: {
-            '^/api': {
-                target: 'http://api.localhost:80'
+            '^/api/': {
+                target: 'http://api.syrius.local',
+                ws: true,
+                changeOrigin: true
             },
             '^/ozon-api/': {
                 target: 'http://api-seller.ozon.ru:80',

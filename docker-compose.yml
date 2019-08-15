@@ -32,6 +32,8 @@ services:
         ipv4_address: 172.16.111.20
 #    command: "ping ya.ru"
     command: "yarn serve"
+    extra_hosts:
+      - "api.syrius.local:10.1.1.7"
     volumes:
       - ./client:/home/node/app:rw
 
@@ -47,11 +49,13 @@ services:
     environment:
       APACHE_DOCUMENT_ROOT: public/
       PHP_EXTENSION_XDEBUG: 1
+      PHP_EXTENSION_GD: 1
       PHP_MEMORY_LIMIT: 1G
+      PHP_INI_MAX_EXECUTION_TIME: 120
       # Symfony
       APP_ENV: dev
       APP_SECRET: fd4f75c792f98b3c603a576ebff41ee2
-      DATABASE_URL: mysql://user:acd74h5@db:3306/project_db # mysql://db_user:db_password@127.0.0.1:3306/db_name
+      DATABASE_URL: mysql://root:admin@db:3306/project_db # mysql://db_user:db_password@127.0.0.1:3306/db_name
     volumes:
       - ./api:/var/www/html:rw
 
