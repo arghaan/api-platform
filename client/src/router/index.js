@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 // import store from '../store';
-import Articles from '../pages/Articles'
-import ProductList from '../pages/ProductList'
+import Products from '../pages/Products'
 import Home from '../pages/Home'
 import Categories from "../pages/Categories";
 
@@ -12,9 +11,9 @@ let router = new VueRouter({
     mode: 'history',
     routes: [
         {
-            path: '/ozon/product/list',
-            name: 'ozon_product_list',
-            component: ProductList
+            path: '/products',
+            name: 'products',
+            component: Products
         },
         {
             path: '/',

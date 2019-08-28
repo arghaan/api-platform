@@ -25,10 +25,10 @@
         >
             <template v-slot:prepend="{ item, open }">
                 <v-icon v-if="!item.lastChild">
-                    {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
+                    {{ open ? 'mdi-folder-open' : 'mdi-folder-multiple' }}
                 </v-icon>
                 <v-icon v-else>
-                    {{ 'mdi-file-document-outline' }}
+                    {{ 'mdi-folder' }}
                 </v-icon>
             </template>
             <template v-slot:label="{ item }">

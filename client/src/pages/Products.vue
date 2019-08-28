@@ -79,11 +79,11 @@
             dialog: false,
             headers: [
                 {text: 'ID', value: 'id'},
-                {text: 'Offer ID', value: 'offer_id'},
+                {text: 'Offer ID', value: 'offerId'},
                 {text: 'Ozon ID', value: 'sku'},
                 {text: 'Название', value: 'name',},
                 {text: 'Цена', value: 'price'},
-                {text: 'Категория', value: 'category_title'},
+                {text: 'Категория', value: 'categoryId'},
                 {text: 'Действия', value: 'action', sortable: false},
             ],
             editedIndex: -1,
@@ -135,7 +135,7 @@
         },
 
         created() {
-            // this.$store.dispatch('product/fetchCategories');
+            this.$store.dispatch('product/getProducts');
         },
 
         methods: {

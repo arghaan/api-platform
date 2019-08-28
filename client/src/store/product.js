@@ -5,7 +5,7 @@ export default {
     state: {
         isLoading: false,
         error: null,
-        items: [],
+        products: [],
         total: 0,
         pagination: {
             // itemsPerPage: 7,
@@ -23,10 +23,10 @@ export default {
             return state.error;
         },
         hasProducts(state) {
-            return state.items.length > 0;
+            // return state.items.length > 0;
         },
         products(state) {
-            return state.items;
+            return state.products;
         },
         total(state) {
             return state.total;
@@ -43,28 +43,28 @@ export default {
         ['CREATING_PRODUCT_SUCCESS'](state, product) {
             state.isLoading = false;
             state.error = null;
-            state.items.unshift(product);
+            state.products.unshift(product);
         },
         ['CREATING_PRODUCT_ERROR'](state, error) {
             state.isLoading = false;
             state.error = error;
-            state.items = [];
+            state.products = [];
         },
         ['FETCHING_PRODUCTS'](state) {
             state.isLoading = true;
             state.error = null;
-            state.items = [];
+            state.products = [];
         },
-        ['FETCHING_PRODUCTS_SUCCESS'](state, items) {
+        ['FETCHING_PRODUCTS_SUCCESS'](state, products) {
             state.isLoading = false;
             state.error = null;
-            state.items = items.products;
-            state.total = items.total;
+            state.products = products;
+            state.total = products.total;
         },
         ['FETCHING_PRODUCTS_ERROR'](state, error) {
             state.isLoading = false;
             state.error = error;
-            state.items = [];
+            state.products = [];
             /* eslint-disable no-console */
             console.log(error);
             /* eslint-enable no-console */
@@ -74,16 +74,19 @@ export default {
         }
     },
     actions: {
-        downloadProducts({commit}) {
+        getProducts({commit}) {
             commit('FETCHING_PRODUCTS');
-            return ProductAPI.downloadProducts()
+            return ProductAPI.getProducts()
                 .then(async (res) => {
-                    return commit('FETCHING_PRODUCTS_SUCCESS', {
-                        'products': res.data.result,
-                        'total': res.data.result.total
-                    });
+                    return commit('FETCHING_PRODUCTS_SUCCESS', res.data);
                 })
-                .catch(err => commit('FETCHING_PRODUCTS_ERROR', err));
+                .catch(err => {
+                    console.log(err);
+                    commit('FETCHING_PRODUCTS_ERROR', err)
+                });
         },
+        updatePagination(){
+
+        }
     },
 }

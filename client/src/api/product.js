@@ -9,4 +9,7 @@ export default {
     downloadProducts() {
         return axios.get('/api/ozon/product/download', config);
     },
+    getProducts(){
+        return axios.get('/api/product/list', config);
+    }
 }
